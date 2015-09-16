@@ -1,9 +1,8 @@
 //////// Exercise x2:  modularize exercise x1, and add dog to chase hero.
-//////// Whoever Whoever  (CST 112; today's date?)
-
+//////// Emmett Woytovich CST112 9/16/2015
 //////// Please change these to your name and today's date.
-String author=  "Whoever Whatever";
-String title=  " ??? ";
+String author=  "Emmett Woytovich 9/16/2015";
+String title=  " Intense Chase Scene ";
 String help=  " Click to relocate hero \n 'q' to quit; 'r' to reset. ";
 
 
@@ -16,7 +15,8 @@ float dogX, dogY;
 //// SETUP:  window size, initialization (start in middle of screen).
 void setup() {
   size( 640,480);
-  horizon=  height/4;
+  dogX = 0;
+  dogY = 0;
   x=  width/2;
   y=  height/2;
   dx=  3;
@@ -33,12 +33,13 @@ void draw() {
 
 //// SCENE:  sky, sun, tree, house, etc.
 void scene() {  
-  /* INSERT YOUR CODE HERE! */    background( 200,255,255 );
+  background( 200,255,255 );
   fill(0);
-  /* REPLACE THIS STUB! */  text( "scene", 100, 100 );
+  text( "The Bupkis Returns", 100, 100 );
 }
 
 void messages() {
+  fill(0);
   text( title, width/3, 20 );
   text( help, width*2/3, 30 );
   text( author, 10,height-20 );
@@ -46,14 +47,21 @@ void messages() {
 
 //// ACTION:  move (x,y) coordinates of hero & dog; show them.
 void hero() {
-  /* INSERT YOUR CODE HERE! */
-  /* REPLACE THIS STUB! */  text( "[[[[ Zoog. ]]]]", 200, 200 );
+  fill(x%255,y%255,(x+y)%255); ellipse(x,y,50,50);
+  x = (x+dx)%(width+50);
+  y = (y+dy)%(height+50);
+  if(x < -50){x = width + 50;}
+  if(y < -50){y = height + 50;}
 }
 void dog() {
-  dogX=  dogX + (dogX-x)/30;
-  dogY=  dogY + (dogY-x)/40;
-  /* INSERT YOUR CODE HERE! */
-  /* REPLACE THIS STUB! */  text( "woof, woof!!!", 150, 150 );
+  
+  rect(dogX-50,dogY-50,50,50);
+  fill(0);
+  text( "woof, woof!!!", dogX, dogY );
+  dogX=  (dogX + (x-dogX)/30)%(width+50);
+  dogY=  (dogY + (y-dogY)/40)%(width+50);
+  if(dogX < -50){dogX = width + 50;}
+  if(dogY < -50){dogY = height + 50;}
 }
 
 
@@ -73,8 +81,10 @@ void keyPressed() {
   if (key == 'q') {
     exit();                           // press 'q' key to QUIT.
   }
-  /* INSERT YOUR CODE HERE! */
+  if(key == 'r'){
+  setup();
+  }
 }
-   
+
    
 
